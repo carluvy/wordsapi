@@ -16,7 +16,6 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 
-
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -93,7 +92,6 @@ DATABASES = {
 
     }
 }
-
 
 # Heroku: Update database configuration from $DATABASE_URL.
 
