@@ -86,11 +86,11 @@ WSGI_APPLICATION = 'wordsapi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env('dbname'),
-        'USER': env('user'),
-        'PASSWORD': env('password'),
-        'HOST': env('host'),
-        'PORT': env('port'),
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('USER'),
+        'PASSWORD': env('PASSWORD'),
+        'HOST': env('HOST'),
+        'PORT': env('PORT'),
 
     }
 }
