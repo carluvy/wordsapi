@@ -88,9 +88,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('USER'),
-        'PASSWORD': env('PASSWORD'),
-        'HOST': env('HOST'),
-        'PORT': env('PORT'),
+        'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': os.getenv('HOST'),
+        'PORT': os.environ.get('PORT'),
 
     }
 }
@@ -143,4 +143,4 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
