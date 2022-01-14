@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
 from pathlib import Path
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
 
 import dj_database_url
 
@@ -30,7 +35,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -81,14 +85,15 @@ WSGI_APPLICATION = 'wordsapi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': str(os.getenv('DATABASE')),
-        'USER': str(os.getenv('USER')),
-        'PASSWORD': str(os.getenv('PASSWORD')),
-        'HOST': os.environ.get('HOST'),
-        'PORT': os.environ.get('PORT')
+        'NAME': env('dbname'),
+        'USER': env('user'),
+        'PASSWORD': env('password'),
+        'HOST': env('host'),
+        'PORT': env('port'),
 
     }
 }
+
 
 # Heroku: Update database configuration from $DATABASE_URL.
 
