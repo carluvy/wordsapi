@@ -1,0 +1,1 @@
+web: gunicorn wordsapi.wsgi --log-file -
