@@ -25,7 +25,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.getenv('DEBUG'))
-ALLOWED_HOSTS = ['https://words-swahili.herokuapp.com/']
+ALLOWED_HOSTS = ['words-swahili.herokuapp.com/']
 
 # Application definition
 
