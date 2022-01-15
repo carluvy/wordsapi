@@ -31,6 +31,9 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = False
 ALLOWED_HOSTS = ['*']
 
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_HEADERS = ['*']
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -59,8 +62,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = False
 ROOT_URLCONF = 'wordsapi.urls'
 
 TEMPLATES = [
