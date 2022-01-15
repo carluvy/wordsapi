@@ -7,3 +7,5 @@ class ProverbSerializer(serializers.ModelSerializer):
     class Meta:
         model = Proverb
         fields = ['proverb', 'meaning']
+
+

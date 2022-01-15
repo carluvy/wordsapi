@@ -1,6 +1,8 @@
+from django.db.migrations import serializer
 from django.shortcuts import render
 
 # Create your views here.
+from rest_framework.exceptions import APIException
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 
 from .models import Proverb
@@ -30,3 +32,13 @@ class DeleteProverbAPIView(DestroyAPIView):
     """This endpoint allows for deletion of a specific proverb from the database"""
     queryset = Proverb.objects.all()
     serializer_class = ProverbSerializer
+
+
+class ServiceUnavailable(APIException):
+    method_not_allowed, bad_request = (405, 400)
+    if method_not_allowed:
+        'You are not allowed to get this info!'
+    elif bad_request:
+        'Please input correct data'
+
+
