@@ -5,8 +5,8 @@ from django.db import models
 
 class Proverb(models.Model):
     id = models.AutoField(primary_key=True)
-    proverb = models.CharField(max_length=255)
-    meaning = models.CharField(max_length=255)
+    proverb = models.TextField()
+    meaning = models.TextField()
 
     def __str__(self):
         return self.proverb
