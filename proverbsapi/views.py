@@ -37,8 +37,8 @@ class DeleteProverbAPIView(DestroyAPIView):
 class ServiceUnavailable(APIException):
     method_not_allowed, bad_request = (405, 400)
     if method_not_allowed:
-        logging.log('You are not allowed to get this info!')
+        logging.log(1, 'You are not allowed to get this info!')
     elif bad_request:
-        logging.log('Please input correct data')
+        logging.log(2, 'Please input correct data')
 
 
