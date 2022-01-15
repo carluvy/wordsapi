@@ -29,7 +29,14 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*',
+                 'https://words-swahili.herokuapp.com/',
+                 'https://words-swahili.herokuapp.com/create/',
+                 'https://words-swahili.herokuapp.com/proverbs/create/',
+                 'https://words-swahili.herokuapp.com/proverbs/',
+                 'https://words-swahili.herokuapp.com/docs/',
+                 'https://words-swahili.herokuapp.com/admin/',
+                 'localhost',]
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_HEADERS = ['*']

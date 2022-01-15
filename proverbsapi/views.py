@@ -1,5 +1,5 @@
-from django.db.migrations import serializer
-from django.shortcuts import render
+import logging
+
 
 # Create your views here.
 from rest_framework.exceptions import APIException
@@ -37,8 +37,8 @@ class DeleteProverbAPIView(DestroyAPIView):
 class ServiceUnavailable(APIException):
     method_not_allowed, bad_request = (405, 400)
     if method_not_allowed:
-        'You are not allowed to get this info!'
+        logging.log('You are not allowed to get this info!')
     elif bad_request:
-        'Please input correct data'
+        logging.log('Please input correct data')
 
 
