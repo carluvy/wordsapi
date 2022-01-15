@@ -4,13 +4,13 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView, ListAPIView
 
-from .models import Word
-from .serializers import WordSerializer
+from ..models import Word
+from ..serializers import WordSerializer
 
-
-class WordViewSet(viewsets.ModelViewSet):
-    queryset = Word.objects.all().order_by('word')
-    serializer_class = WordSerializer
+#
+# class WordViewSet(viewsets.ModelViewSet):
+#     queryset = Word.objects.all().order_by('word')
+#     serializer_class = WordSerializer
 
 
 class WordListAPIView(ListAPIView):
@@ -22,6 +22,7 @@ class WordListAPIView(ListAPIView):
 class CreateWordAPIView(CreateAPIView):
     """This endpoint allows for creation of a word"""
     queryset = Word.objects.all()
+    # lower_case = str(queryset).upper()
     serializer_class = WordSerializer
 
 
