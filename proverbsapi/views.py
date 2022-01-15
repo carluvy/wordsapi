@@ -1,7 +1,10 @@
+from django.shortcuts import render
+
+# Create your views here.
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 
-from ..models import Proverb
-from ..serializers import ProverbSerializer
+from .models import Proverb
+from .serializers import ProverbSerializer
 
 
 class ProverbListAPIView(ListAPIView):

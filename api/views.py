@@ -1,11 +1,10 @@
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView, ListAPIView
 
-from ..models import Word
-from ..serializers import WordSerializer
+from .models import Word
+from .serializers import WordSerializer
 
 #
 # class WordViewSet(viewsets.ModelViewSet):
