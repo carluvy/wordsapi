@@ -9,4 +9,4 @@ class Proverb(models.Model):
     meaning = models.TextField()
 
     def __str__(self):
-        return self.proverb
+        return self.id, self.proverb

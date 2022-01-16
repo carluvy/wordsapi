@@ -10,6 +10,6 @@ class Word(models.Model):
     definition = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.word
+        return self.id, self.word
 
 

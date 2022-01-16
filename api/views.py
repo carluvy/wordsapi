@@ -2,7 +2,8 @@ from django.db.models import Subquery, OuterRef, Count, Max
 
 # Create your views here.
 from django.db.models.functions import Upper
-from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView, ListAPIView
+from requests import Response
+from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView, ListAPIView, RetrieveUpdateAPIView
 
 from .models import Word
 from .serializers import WordSerializer
@@ -31,13 +32,12 @@ class CreateWordAPIView(CreateAPIView):
 
 class UpdateWordAPIView(UpdateAPIView):
     """This endpoint allows for updating a specific word by passing in the id of the word to update"""
-    get_id = Word.objects.values_list('id')
-
     queryset = Word.objects.all()
     serializer_class = WordSerializer
+    lookup_field = 'pk'
 
 
 class DeleteWordAPIView(DestroyAPIView):
     """This endpoint allows for deletion of a specific word from the database"""
-    queryset = Word.objects.all()
+    queryset = Word.objects.all().order_by('word')
     serializer_class = WordSerializer
