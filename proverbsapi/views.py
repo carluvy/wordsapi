@@ -1,6 +1,5 @@
 import logging
 
-
 # Create your views here.
 from rest_framework.exceptions import APIException
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
@@ -11,6 +10,8 @@ from .serializers import ProverbSerializer
 
 class ProverbListAPIView(ListAPIView):
     """This endpoint list all of the available proverbs from the database"""
+    for proverb in Proverb.objects.values_list('proverb', flat=True).distinct():
+        Proverb.objects.filter(pk__in=Proverb.objects.filter(proverb=proverb).values_list('id', flat=True)[1:]).delete()
     queryset = Proverb.objects.all().order_by('proverb')
     serializer_class = ProverbSerializer
 
@@ -18,7 +19,6 @@ class ProverbListAPIView(ListAPIView):
 class CreateProverbAPIView(CreateAPIView):
     """This endpoint allows for creation of a proverb"""
     queryset = Proverb.objects.all()
-    # lower_case = str(queryset).upper()
     serializer_class = ProverbSerializer
 
 
@@ -35,10 +35,9 @@ class DeleteProverbAPIView(DestroyAPIView):
 
 
 class ServiceUnavailable(APIException):
+    logger = logging.getLogger('HttpResponse')
     method_not_allowed, bad_request = (405, 400)
     if method_not_allowed:
-        logging.log(1, 'You are not allowed to get this info!')
+        logger.error("Unexpected error occurred %s", "major problem", exc_info=1)
     elif bad_request:
-        logging.log(2, 'Please input correct data')
-
-
+        logger.error(2, 'Please input correct data')

@@ -28,15 +28,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-ALLOWED_HOSTS = ['*',
-                 'https://words-swahili.herokuapp.com/',
-                 'https://words-swahili.herokuapp.com/create/',
-                 'https://words-swahili.herokuapp.com/proverbs/create/',
-                 'https://words-swahili.herokuapp.com/proverbs/',
-                 'https://words-swahili.herokuapp.com/docs/',
-                 'https://words-swahili.herokuapp.com/admin/',
-                 'localhost',]
+DEBUG = True
+ALLOWED_HOSTS = ['*']
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_HEADERS = ['*']
@@ -106,7 +99,7 @@ DATABASES = {
 
 # Heroku: Update database configuration from $DATABASE_URL.
 
-db_from_env = dj_database_url.config()
+db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
 # Password validation
