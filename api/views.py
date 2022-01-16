@@ -1,4 +1,4 @@
-from django.db.models import Subquery, OuterRef
+from django.db.models import Subquery, OuterRef, Count, Max
 
 # Create your views here.
 from django.db.models.functions import Upper
@@ -17,23 +17,10 @@ from .serializers import WordSerializer
 class WordListAPIView(ListAPIView):
     for word in Word.objects.values_list('word', flat=True).distinct():
         Word.objects.filter(pk__in=Word.objects.filter(word=word).values_list('id', flat=True)[1:]).delete()
-    ups = Word.objects.values_list(Upper('word'))
     """This endpoint list all of the available words from the database"""
     queryset = Word.objects.all().order_by('word')
 
     serializer_class = WordSerializer
-
-    # word_list = Word.objects.filter(
-    #     pk__in=Word.objects.values('word').distinct().annotate(
-    #         pk=Subquery(
-    #             Word.objects.filter(
-    #                 duplicate_col=OuterRef('word')
-    #             )
-    #                 .order_by("pk")
-    #                 .values("pk")[:1])
-    #     )
-    #         .values_list("pk", flat=True)
-    # )
 
 
 class CreateWordAPIView(CreateAPIView):
@@ -45,7 +32,7 @@ class CreateWordAPIView(CreateAPIView):
 class UpdateWordAPIView(UpdateAPIView):
     """This endpoint allows for updating a specific word by passing in the id of the word to update"""
     get_id = Word.objects.values_list('id')
-    
+
     queryset = Word.objects.all()
     serializer_class = WordSerializer
 
