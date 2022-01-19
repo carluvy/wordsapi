@@ -10,8 +10,7 @@ from .serializers import ProverbSerializer
 
 class ProverbListAPIView(ListAPIView):
     """This endpoint list all of the available proverbs from the database"""
-    for proverb in Proverb.objects.values_list('proverb', flat=True).distinct():
-        Proverb.objects.filter(pk__in=Proverb.objects.filter(proverb=proverb).values_list('id', flat=True)[1:]).delete()
+
     queryset = Proverb.objects.all().order_by('proverb')
     serializer_class = ProverbSerializer
 
