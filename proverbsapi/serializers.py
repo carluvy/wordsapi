@@ -6,7 +6,7 @@ from .models import Proverb
 class ProverbSerializer(serializers.ModelSerializer):
     class Meta:
         model = Proverb
-        fields = ['id', 'proverb', 'meaning']
+        fields = ['proverb', 'meaning']
 
 
 
