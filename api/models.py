@@ -7,7 +7,7 @@ from rest_framework.exceptions import ValidationError
 
 class Word(models.Model):
     # id = models.AutoField(primary_key=True)
-    word = models.CharField(max_length=20, blank=False, null=False)
+    word = models.CharField(unique=True, max_length=20, blank=False, null=False)
     state = models.CharField(max_length=10, blank=False, null=False)
     definition = models.CharField(max_length=50, blank=False, null=False)
 

@@ -34,22 +34,23 @@ class CreateWordAPIView(CreateAPIView):
     queryset = Word.objects.all()
     serializer_class = WordSerializer
 
-    def post(self, request):
-        word = request.data
-        serializer = self.serializer_class(data=word)
-        serializer.is_valid(raise_exception=True)
-        # serializer.save()
-        try:
-            words = Word.objects.create(word=serializer.data.get('word'), definition=request.data.get('definition'), )
-            word_ = serializer.data.get('word')
-            definition = serializer.data.get('definition')
-        except IntegrityError:
-            return Response('Word already exists', status=status.HTTP_406_NOT_ACCEPTABLE)
-        msg = 'You have added the word {} that means {}'.format(word_, definition)
-
-        # response = Response(msg)
-
-        return Response({'msg': msg})
+    # def post(self, request):
+    #     word = request.data
+    #     serializer = self.serializer_class(data=word)
+    #     serializer.is_valid(raise_exception=True)
+    #     # serializer.save()
+    #     try:
+    #         words = Word.objects.create(word=serializer.data.get('word'), definition=request.data.get('definition') )
+    #         word_ = serializer.data.get('word')
+    #         definition = serializer.data.get('definition')
+    #         state = serializer.data.get('state')
+    #     except IntegrityError:
+    #         return Response('Word already exists', status=status.HTTP_406_NOT_ACCEPTABLE)
+    #     msg = 'You have added the word {}, a {} that means {}.'.format(word_, state, definition)
+    #
+    #     # response = Response(msg)
+    #
+    #     return Response({'msg': msg})
 
         # response = JsonResponse(False, word, request)
         # return Response(word, status.HTTP_201_CREATED, False)
