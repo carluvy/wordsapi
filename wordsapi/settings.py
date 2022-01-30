@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -178,11 +178,11 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': False,
         },
-        'myproject.custom': {
-            'handlers': ['console', 'mail_admins'],
-            'level': 'INFO',
-            "reporter_class": "django.views.debug.ExceptionReporter"
-        }
+        # 'myproject.custom': {
+        #     'handlers': ['console', 'mail_admins'],
+        #     'level': 'INFO',
+        #     "reporter_class": "django.views.debug.ExceptionReporter"
+        # }
     }
 }
 # Static files (CSS, JavaScript, Images)

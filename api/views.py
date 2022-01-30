@@ -1,7 +1,8 @@
 # Create your views here.
 from django.db import IntegrityError
 from rest_framework import permissions, status
-from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView, ListAPIView, \
+    RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 
 from . import serializers
@@ -61,6 +62,17 @@ class UpdateWordAPIView(UpdateAPIView):
     queryset = Word.objects.all()
     serializer_class = WordSerializer
     lookup_field = 'pk'
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "word updated successfully"})
+
+        else:
+            return Response({"message": "failed", "details": serializer.errors})
 
 
 class DeleteWordAPIView(DestroyAPIView):
