@@ -2,7 +2,7 @@
 from django.db import IntegrityError
 from rest_framework import permissions, status
 from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView, ListAPIView, \
-    RetrieveUpdateDestroyAPIView
+    RetrieveUpdateDestroyAPIView, RetrieveUpdateAPIView
 from rest_framework.response import Response
 
 from . import serializers
@@ -57,22 +57,23 @@ class CreateWordAPIView(CreateAPIView):
         # return Response(word, status.HTTP_201_CREATED, False)
 
 
-class UpdateWordAPIView(UpdateAPIView):
+class UpdateWordAPIView(RetrieveUpdateAPIView):
     """This endpoint allows for updating a specific word by passing in the id of the word to update"""
     queryset = Word.objects.all()
     serializer_class = WordSerializer
     lookup_field = 'pk'
 
-    def update(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=True)
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"message": "word updated successfully"})
-
-        else:
-            return Response({"message": "failed", "details": serializer.errors})
+    # def perform_update(self, serializer):
+    #     instance = self.get_object()
+    #     modified_instance = serializer.save(word='word')
+    #     serializer = self.get_serializer(instance, data=request.data, partial=True)
+    #
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response({"message": "word updated successfully"})
+    #
+    #     else:
+    #         return Response({"message": "failed", "details": serializer.errors})
 
 
 class DeleteWordAPIView(DestroyAPIView):
