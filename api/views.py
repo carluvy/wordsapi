@@ -2,7 +2,7 @@
 from django.db import IntegrityError
 from rest_framework import permissions, status
 from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView, ListAPIView, \
-    RetrieveUpdateDestroyAPIView, RetrieveUpdateAPIView
+    RetrieveUpdateDestroyAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView
 from rest_framework.response import Response
 
 from . import serializers
@@ -76,7 +76,7 @@ class UpdateWordAPIView(RetrieveUpdateAPIView):
     #         return Response({"message": "failed", "details": serializer.errors})
 
 
-class DeleteWordAPIView(DestroyAPIView):
+class DeleteWordAPIView(RetrieveDestroyAPIView):
     """This endpoint allows for deletion of a specific word from the database"""
     queryset = Word.objects.all().order_by('word')
     serializer_class = WordSerializer
