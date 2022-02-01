@@ -1,9 +1,13 @@
 # Create your views here.
 from django.db import IntegrityError
-from rest_framework import permissions, status
+from django.http import JsonResponse
+from django.views.generic.base import logger
+from rest_framework import permissions, status, generics
 from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView, ListAPIView, \
     RetrieveUpdateDestroyAPIView, RetrieveUpdateAPIView, RetrieveDestroyAPIView
 from rest_framework.response import Response
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_500_INTERNAL_SERVER_ERROR
+from rest_framework.views import APIView
 
 from . import serializers
 from .models import Word
@@ -30,10 +34,18 @@ class WordListAPIView(ListAPIView):
     serializer_class = WordSerializer
 
 
-class CreateWordAPIView(CreateAPIView):
+class CreateWordAPIView(generics.ListCreateAPIView):
     """This endpoint allows for creation of a word"""
     queryset = Word.objects.all()
     serializer_class = WordSerializer
+
+    # def word_detail(self, request):
+    #     word = request.data.get("pk")
+    #     serializer = WordSerializer(word, data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # def post(self, request):
     #     word = request.data
@@ -41,7 +53,7 @@ class CreateWordAPIView(CreateAPIView):
     #     serializer.is_valid(raise_exception=True)
     #     # serializer.save()
     #     try:
-    #         words = Word.objects.create(word=serializer.data.get('word'), definition=request.data.get('definition') )
+    #         words = Word.objects.create(word=serializer.data.get('word'), definition=request.data.get('definition'))
     #         word_ = serializer.data.get('word')
     #         definition = serializer.data.get('definition')
     #         state = serializer.data.get('state')
@@ -53,27 +65,18 @@ class CreateWordAPIView(CreateAPIView):
     #
     #     return Response({'msg': msg})
 
-        # response = JsonResponse(False, word, request)
-        # return Response(word, status.HTTP_201_CREATED, False)
+    # response = JsonResponse(False, word, request)
+    # return Response(word, status.HTTP_201_CREATED, False)
 
 
-class UpdateWordAPIView(RetrieveUpdateAPIView):
+class UpdateWordAPIView(RetrieveUpdateDestroyAPIView):
     """This endpoint allows for updating a specific word by passing in the id of the word to update"""
     queryset = Word.objects.all()
     serializer_class = WordSerializer
-    lookup_field = 'pk'
 
-    # def perform_update(self, serializer):
-    #     instance = self.get_object()
-    #     modified_instance = serializer.save(word='word')
-    #     serializer = self.get_serializer(instance, data=request.data, partial=True)
-    #
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response({"message": "word updated successfully"})
-    #
-    #     else:
-    #         return Response({"message": "failed", "details": serializer.errors})
+    def patch(self, request, *args, **kwargs):
+        kwargs['partial'] = True
+        return self.update(request, *args, **kwargs)
 
 
 class DeleteWordAPIView(RetrieveDestroyAPIView):
